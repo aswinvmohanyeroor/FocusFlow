@@ -1,21 +1,19 @@
 const mongoose = require('mongoose');
 
-const taskSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
+const TaskSchema = new mongoose.Schema({
+  title: String,
   description: String,
   dueDate: Date,
-  email: String,
   completed: {
     type: Boolean,
-    default: false,
+    default: false
   },
-  reminderSent: {
-    type: Boolean,
-    default: false,
+  email: String, // still optional
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Task', taskSchema);
+module.exports = mongoose.model('Task', TaskSchema);

@@ -11,6 +11,8 @@ import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import AdminDashboard from './components/AdminDashboard';
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -22,7 +24,6 @@ const AppContent = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 🔐 Redirect if trying to access protected route without login
   useEffect(() => {
     const protectedRoutes = ['/add', '/tasks'];
     if (!user && protectedRoutes.includes(location.pathname)) {
@@ -32,18 +33,18 @@ const AppContent = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/'); // ✅ Force redirect to login after logout
+    navigate('/');
   };
 
   return (
     <div className="App">
       <h1>📋 FocusFlow</h1>
 
-      {/* ✅ Show nav only if logged in */}
       {user && (
         <nav className="nav">
           <Link to="/add">Add Task</Link>
           <Link to="/tasks">Task List</Link>
+          {user.role === 'admin' && <Link to="/admin">Admin</Link>}
           <button onClick={handleLogout} className="logout-btn">🚪 Logout</button>
         </nav>
       )}
@@ -51,12 +52,18 @@ const AppContent = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+
         {user && (
           <>
             <Route path="/add" element={<TaskForm />} />
             <Route path="/tasks" element={<TaskList />} />
           </>
         )}
+
+        {user?.role === 'admin' && (
+          <Route path="/admin" element={<AdminDashboard />} />
+        )}
+
         <Route path="*" element={<Login />} />
       </Routes>
 

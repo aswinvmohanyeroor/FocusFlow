@@ -7,6 +7,8 @@ const authRoutes = require('./routes/authRoutes'); // Move this below express
 dotenv.config();
 
 const app = express(); // ✅ This must come before any app.use()
+const adminRoutes = require('./routes/adminRoutes');
+app.use('/api/admin', adminRoutes);
 
 app.use(cors());
 app.use(express.json());
