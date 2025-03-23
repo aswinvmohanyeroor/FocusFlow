@@ -150,3 +150,16 @@ form button:hover {
     align-items: center;
   }
 }
+.logout-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.logout-btn:hover {
+  opacity: 0.9;
+}
