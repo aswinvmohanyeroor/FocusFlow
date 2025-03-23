@@ -18,8 +18,21 @@ const TaskList = () => {
       ) : (
         <ul>
           {tasks.map(task => (
-            <li key={task._id}>
-              <strong>{task.title}</strong> — {task.description}
+            <li key={task._id} style={{ marginBottom: '12px' }}>
+              <strong>{task.title}</strong> — {task.description} <br />
+              Due: {new Date(task.dueDate).toLocaleString()} <br />
+              Status: {task.completed ? '✅ Completed' : '⏳ Pending'} <br />
+              {!task.completed && (
+                <button
+                  onClick={() => {
+                    axios.patch(`http://localhost:5000/api/tasks/${task._id}/complete`)
+                      .then(() => window.location.reload())
+                      .catch(err => alert('Error: ' + err.message));
+                  }}
+                >
+                  Mark as Complete
+                </button>
+              )}
             </li>
           ))}
         </ul>

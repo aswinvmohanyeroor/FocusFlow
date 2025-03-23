@@ -26,16 +26,3 @@ router.post('/', async (req, res) => {
 });
 
 module.exports = router;
-// PATCH: Mark task as completed
-router.patch('/:id/complete', async (req, res) => {
-  try {
-    const task = await Task.findByIdAndUpdate(
-      req.params.id,
-      { completed: true },
-      { new: true }
-    );
-    res.json(task);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
