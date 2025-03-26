@@ -91,10 +91,11 @@ npm start
 ```
 
 ✅ **Optional:** Create default admin: 
+create admin file is included , after creation you can delete the page
 ```bash
 node createAdmin.js
 ```
-create admin file is included , after creation you can delete the page
+
 ---
 
 ### 💻 Frontend
